@@ -8,13 +8,14 @@ class Gato:
 protected:
 	int X;
 	int Y;
-	int X0=10;
-	int Y0=10;
+	int X0;
+	int Y0;
 	double velocidad;
 	double angulo;
-	double Vx=0;
-	double Vy=0;
-	double timet=0;
+	double Vx;
+	double Vy;
+	double timet;
+	bool avanzar;
 	QTimer t.start(13);
 	QGraphicsPixmapItem*  m_pic2;
 public:
@@ -26,6 +27,9 @@ public:
 	    m_pic(0),
 	    m_pic2(0)
 	{
+		X0=20;
+		Y0=500;
+		timet=0;
 		velocidad = 100;
 	    angulo = -0.76;
 	    g = 9.8;
@@ -54,17 +58,22 @@ public:
 	}
 	void mover()
 	{
-		Vx=velocidad*cos(angulo);
-		Vy=velocidad*sen(angulo);
-		X=X+Vx*timet;
-		Y=Y+Vy*timet+0.5*g*pow(timet,2);
+		if(avanzar == true)
+		{ 
+			timet += 0.05;
+			Vx=velocidad*cos(angulo);
+			Vy=velocidad*sin(angulo);
+			double xx=X0+Vx*timet;
+			double yy=Y0+Vy*timet+0.5*g*pow(timet,2);
+			this->setPos(xx, yy);
+		}
 	}
 	virtual void comprobar()
 	{
 		if (t.isActive==true)
 		{
 			mover();
-			timet+=0.013;
+			timet+=0.05;
 		}
 	}
 };
