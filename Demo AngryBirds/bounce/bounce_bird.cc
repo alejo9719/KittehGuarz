@@ -12,8 +12,8 @@ BounceBird::BounceBird(QGraphicsItem* parent, QGraphicsScene* scene)
     m_pic(0),
     m_pic2(0)
 {
-  velocidad = 100;
-  angulo = -0.76;
+  velocidad = 200;
+  angulo = -0;
   g = 9.8;
   avanzar=false;
   std::cout << "Construction of BounceBird\n";
