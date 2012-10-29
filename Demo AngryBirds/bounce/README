@@ -1,0 +1,9 @@
+To Compile:
+-----------
+qmake -project
+qmake
+make
+
+
+Tested with Qt 4.8 in OSX 10.7 and Linux
+
