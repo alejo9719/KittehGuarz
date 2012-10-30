@@ -19,16 +19,14 @@ protected:
 	QTimer t.start(13);
 	QGraphicsPixmapItem*  m_pic2;
 public:
-	Gato(QGraphicsItem* parent, QGraphicsScene* scene, int peso, QRect rectangulo, int X, int Y)
-		:peso(peso), rectangulo(rectangulo), X(X), Y(Y),
+	Gato(QGraphicsItem* parent, QGraphicsScene* scene, int peso, int Xx, int Yy)
+		:peso(peso), X0(Xx), Y0(Yy),
 		QGraphicsItem(parent,scene),
 	    m_dx(1.0), m_dy(1.0),
 	    m_scene(scene),
 	    m_pic(0),
 	    m_pic2(0)
 	{
-		X0=20;
-		Y0=500;
 		timet=0;
 		velocidad = 100;
 	    angulo = -0.76;
@@ -56,7 +54,7 @@ public:
 		velocidad=vals[0];
 		angulo=vals[1];
 	}
-	void mover()
+	void advance()
 	{
 		if(avanzar == true)
 		{ 
@@ -72,10 +70,22 @@ public:
 	{
 		if (t.isActive==true)
 		{
-			mover();
+			advance();
 			timet+=0.05;
 		}
 	}
+	 void mousePressEvent(QGraphicsSceneMouseEvent *event)
+	 {
+	     if (event->button() == Qt::LeftButton) {
+	        avanzar=true;
+	        std::cout << "Ahhhh!\n";
+	        //this->advance(100);
+	        //m_pic->setPos(this->pos());
+	     } else {
+	         // pass on other buttons to base class
+	        QGraphicsItem::mousePressEvent(event);
+	     }
+	 }
 };
 
 #endif
