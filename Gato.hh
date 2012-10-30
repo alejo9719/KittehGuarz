@@ -16,16 +16,12 @@ protected:
 	double Vy;
 	double timet;
 	bool avanzar;
-	QTimer t.start(13);
+	//QTimer t.start(13);
 	QGraphicsPixmapItem*  m_pic2;
 public:
 	Gato(QGraphicsItem* parent, QGraphicsScene* scene, int peso, int Xx, int Yy)
-		:peso(peso), X0(Xx), Y0(Yy),
-		QGraphicsItem(parent,scene),
-	    m_dx(1.0), m_dy(1.0),
-	    m_scene(scene),
-	    m_pic(0),
-	    m_pic2(0)
+		:Objeto(parent, scene, peso),
+		X0(Xx), Y0(Yy)
 	{
 		timet=0;
 		velocidad = 100;
@@ -33,7 +29,7 @@ public:
 	    g = 9.8;
 	    avanzar=false;
 	    std::cout << "Construction of BounceBird\n";
-	    QPixmap pmap("bird.png");
+	    QPixmap pmap("gato3.png");
 	    QPixmap pmap2("Resortera.png");
 	    m_pic = m_scene->addPixmap(pmap); 
 	    m_pic2 = m_scene->addPixmap(pmap2);
@@ -48,16 +44,27 @@ public:
 	{
 		angulo=ang;
 	}
-	void disparar()
+
+	void paint(QPainter *painter, 
+    	const QStyleOptionGraphicsItem *option, QWidget *widget)
+	{
+	  // QPixmap pmap("bird.png");
+	  // painter->drawEllipse(this->boundingRect());
+	  //m_pic->setPos(200,500);
+	  m_pic->setPos(this->pos());
+	  m_pic2->setPos(0, 480);
+	}
+
+	/*void disparar()
 	{
 		vector<double> vals=m.CalcTiro(X0, Y0, X, Y);
 		velocidad=vals[0];
 		angulo=vals[1];
-	}
-	void advance()
+	}*/
+	void advance(int /*phase*/)
 	{
 		if(avanzar == true)
-		{ 
+		{
 			timet += 0.05;
 			Vx=velocidad*cos(angulo);
 			Vy=velocidad*sin(angulo);
@@ -66,14 +73,14 @@ public:
 			this->setPos(xx, yy);
 		}
 	}
-	virtual void comprobar()
+	/*virtual void comprobar()
 	{
 		if (t.isActive==true)
 		{
 			advance();
 			timet+=0.05;
 		}
-	}
+	}*/
 	 void mousePressEvent(QGraphicsSceneMouseEvent *event)
 	 {
 	     if (event->button() == Qt::LeftButton) {
